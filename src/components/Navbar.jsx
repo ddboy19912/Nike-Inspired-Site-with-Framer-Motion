@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import nikeLogo from '../image/nike_PNG18.png'
 import { Search, ShoppingCartOutlined } from "@material-ui/icons";
@@ -8,6 +8,7 @@ display: flex;
 justify-content: space-between;
 padding: 0.5rem 2rem 0rem 2rem;
 background-color: white;
+font-family: 'Poppins', sans-serif;
 `
 const LogoContainer = styled.div`
 display: flex;
@@ -36,6 +37,7 @@ align-items: center;
 cursor: pointer;
 width: 100%;
 position: relative;
+font-size: 1.1rem;
 ${'' /* background-color: green; */}
 height: 80%;
 justify-content: center;
@@ -66,7 +68,7 @@ align-items: center;
 
 const Navbar = () => {
 
-const [activeMenu, isActiveMenu] = useState(false);
+
 
 
     return (

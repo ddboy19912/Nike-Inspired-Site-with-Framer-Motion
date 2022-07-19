@@ -1,13 +1,29 @@
-import React, {useState} from 'react'
-import nikeKd from '../image/Nike_KD.png'
+import React, { useState} from 'react'
 import styled from 'styled-components'
 import { InfoOutlined, LocalShippingOutlined, StarOutlineOutlined, Star } from "@material-ui/icons";
 import { motion } from "framer-motion"
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+
+// COMPONENT IMPORTS
+import Apparel from '../components/Apparel'
+import Shoes from '../components/Shoes/Shoes'
+import Athletes from '../components/Athletes'
+import NewsLetter from '../components/NewsLetter'
+import Footer from '../components/Footer'
+
+
+import { featured } from '../data/featuredData'
+
+import { Autoplay, Pagination, Navigation } from "swiper";
 
 const Container = styled.div`
 display: flex;
 ${'' /* background-color: red; */}
 height: 100vh;
+font-family: 'Poppins', sans-serif;
 `
 const TextContainer = styled.div`
 display: flex;
@@ -56,7 +72,7 @@ flex: 1;
 flex-direction: column
 `
 const Image = styled.div`
-background-image: url(${nikeKd});
+${'' /* background-image: url(${nikeKd}); */}
 width: 31rem;
 height: 31rem;
 background-position: center;
@@ -93,6 +109,7 @@ cursor: pointer;
 
 const Home = () => {
     
+  
 
 const [currentLike, setCurrentLike] = useState(true)
 
@@ -100,12 +117,31 @@ const handleSubmit = () => {
     setCurrentLike(!currentLike)
 }
 
+
     return (
+<>
+        <Swiper
+        spaceBetween={30}
+        centeredSlides={true}
+        autoplay={{
+          delay: 2500,
+          disableOnInteraction: false,
+        }}
+        pagination={{
+          clickable: true,
+        }}
+        navigation={true}
+        modules={[Autoplay, Pagination, Navigation]}
+        className="mySwiper"
+      > 
+      {featured.map((item) => {
+        const {id, image, title, desc, price} = item;
+        return (
+ <SwiperSlide key={id}>
         <Container>
         <TextContainer>
-           <Title>Nike KD Visual</Title>
-           <Description>A large Max Air unit in heel <br/>
-           and Zoom Air Technology <br/> under the forefoot</Description>
+           <Title>{title}</Title>
+           <Description>{desc}</Description>
            <Icons >
             <InfoOutlined  style={{color: 'grey', cursor: 'pointer'}}   />
             <LocalShippingOutlined style={{color: 'grey', cursor: 'pointer'}} />
@@ -117,13 +153,25 @@ const handleSubmit = () => {
            </TextContainer>
            <ImageContainer>
             <Image as={motion.div} animate={{scale: 1.1}} whileHover={{y
-            :[30,0]}} drag />
+            :[30,0]}} drag >
+              <img src={image} alt={title} style={{width: '100%', height: '100%'}} />
+            </Image>
             <ButtonCont>
                 <Button as={motion.div} whileHover={{scale: 1.1}} whileTap={{scale: 0.9}} >Add to Cart</Button>
-                $249
+                {price}
             </ButtonCont>
            </ImageContainer>
         </Container>
+        </SwiperSlide>
+        )
+      })} 
+        </Swiper>
+        <Apparel />
+        <Shoes />
+        <Athletes />
+        <NewsLetter />
+        <Footer />
+        </>
     )
 }
 
